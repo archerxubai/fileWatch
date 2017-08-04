@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cookie-session": "^2.0.0-beta.2",
+    "electron": "^1.6.11",
+    "express": "^4.15.3",
+    "node-watch": "^0.5.5",
+    "nunjucks": "^3.0.1"
+  },
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  }
+}
