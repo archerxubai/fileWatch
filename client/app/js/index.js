@@ -24,8 +24,16 @@ var $currentImage = $('#currentImage'),
 var $refreshButton = $('#button-refresh')
 
 $refreshButton.click(function () {
+	var lastImageId = $currentImage.data('currentIndex')
 	onOpen(currentDir)
+	showImage(lastImageId)
 })
+
+setInterval(function () {
+	var lastImageId = $currentImage.data('currentIndex')
+	onOpen(currentDir)
+	showImage(lastImageId)
+}, 1000)
 
 
 
