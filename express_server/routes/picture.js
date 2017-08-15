@@ -28,7 +28,7 @@ picture.get('/download/:filename', (request, response) => {
 
 picture.get('/all', (request, response) => {
     log('get all')
-    let files = filesIn('./uploads')
+    let files = filesIn('./download')
     log('files', files)
     response.send(files)
 })
