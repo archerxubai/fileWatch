@@ -1,11 +1,12 @@
-'use strict';
+
+const log = console.log.bind(console)
 
 var fs = require('fs');
 var path = require('path');
 var _ = require('lodash');
-var remote = require('remote');
-var dialog = remote.require('dialog');
-var ipc = require('ipc');
+var remote = require('electron').remote;
+const {dialog} = require('electron').remote
+const ipc = require('electron').ipcRenderer
 
 var fileSystem = require('./js/file-system');
 var constants = require('./js/constants');
@@ -23,18 +24,6 @@ var $currentImage = $('#currentImage'),
 	$rotateRight = $('#rotate-right');
 var $refreshButton = $('#button-refresh')
 
-$refreshButton.click(function () {
-	var lastImageId = $currentImage.data('currentIndex')
-	onOpen(currentDir)
-	showImage(lastImageId)
-})
-
-//定时刷新文件夹
-setInterval(function () {
-	var lastImageId = $currentImage.data('currentIndex')
-	onOpen(currentDir)
-	showImage(lastImageId)
-}, 1000)
 
 
 
@@ -42,6 +31,20 @@ setInterval(function () {
 var imageFiles = [],
 	currentImageFile = '',
 	currentDir = '';
+
+$refreshButton.click(function () {
+	var lastImageId = $currentImage.data('currentIndex')
+	onOpen(currentDir)
+	showImage(lastImageId)
+})
+
+//定时刷新文件夹
+// setInterval(function () {
+// 	var lastImageId = $currentImage.data('currentIndex')
+// 	onOpen(currentDir)
+// 	showImage(lastImageId)
+// }, 1000)
+
 
 var toggleButtons = function(hasSelectedImage) {
 	// disable buttons?
@@ -150,7 +153,7 @@ var onOpen = function(filePath) {
 var onFileOpen = function(fileName) {
 	fileName = fileName + ''; // convert to string.
 	var dirName = path.dirname(fileName);
-
+	log('dirname', dirName)
 	_loadDir(dirName, fileName);
 };
 
@@ -208,6 +211,8 @@ $rotateRight.click(function() {
 
 // Initialize the app
 var initialize = function() {
+	log('dialog', dialog)
+	log('ipc', ipc)
 	var appMenu = require('./js/app-menu'); 
 	appMenu.initialize({
 		onOpen: onOpen,

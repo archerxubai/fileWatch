@@ -3,9 +3,9 @@
 var path = require('path');
 var constants = require('./constants');
 var remote = require('electron').remote;
-var {Menu} = rrequire('electron');
-var dialog = require('electron').dialog;
-var {ipc} = require('electron'); // used for close-window and other commands
+const {Menu, MenuItem} = remote;
+const {dialog} = require('electron').remote
+const ipc = require('electron').ipcRenderer; // used for close-window and other commands
 
 //http://stackoverflow.com/questions/11293857/fastest-way-to-copy-file-in-node-js
 function copyFile(source, target, cb) {
@@ -207,7 +207,7 @@ module.exports = {
 		this.options = options;
 
 		var template = this.getMenuTemplate();
-		var menu = Menu.buildFromTemplate(template);
+		const menu = Menu.buildFromTemplate(template);
 
 		Menu.setApplicationMenu(menu);		
 	}

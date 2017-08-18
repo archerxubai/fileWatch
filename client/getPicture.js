@@ -58,6 +58,6 @@ var refreshPic = function() {
     downloadAllPic(url)
 }
 
-setInterval(function () {
-    refreshPic()
-}, 1000)
+// setInterval(function () {
+//     refreshPic()
+// }, 1000)
