@@ -19,6 +19,12 @@
 				<img id="currentImage" class="img-thumb center" />
 
 				<button id="open-file" style="position: relative; left: 35%; top: 40%;" type="button" class="btn btn-secondary-outline btn-lg">Open</button>
+
+				<button id="id-button-save-path">保存路径</button>
+				<input id="id-input-save">
+
+				<button id="id-button-server">保存IP</button>
+				<input id="id-input-server_ip">
 			</div>
 		</div>
 		<div class="col-md-1">
@@ -34,6 +40,7 @@
 					<button type="button" class="btn btn-primary" id="rotate-right"><i class="fa fa-repeat fa-1x"></i></button>
 					<button type="button" class="btn btn-primary" id="button-qr-code">生成二维码 </button>
 					<button type="button" class="btn btn-primary" id="button-refresh">刷新 </button>
+					<button type="button" class="btn btn-primary" id="button-get_picture">拉取图片 </button>
 					<img id="img-qr">
 					<script src="js/QRcode.js"></script>
 				</div>
@@ -47,5 +54,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>
 	<script src="js/index.js"></script>
+	<script src="js/getPath.js"></script>
+	<script src="js/getPicture.js"></script>
 </body>
 </html>

@@ -10,6 +10,7 @@ const ipc = require('electron').ipcRenderer
 
 var fileSystem = require('./js/file-system');
 var constants = require('./js/constants');
+var downloadPic = require('./js/getPicture')
 
 
 
@@ -23,6 +24,11 @@ var $currentImage = $('#currentImage'),
 	$rotateLeft = $('#rotate-left'),
 	$rotateRight = $('#rotate-right');
 var $refreshButton = $('#button-refresh')
+var $getPicButton = $('#button-get_picture')
+
+$getPicButton.click(function () {
+	downloadPic()
+})
 
 
 
@@ -38,12 +44,12 @@ $refreshButton.click(function () {
 	showImage(lastImageId)
 })
 
-//定时刷新文件夹
-// setInterval(function () {
-// 	var lastImageId = $currentImage.data('currentIndex')
-// 	onOpen(currentDir)
-// 	showImage(lastImageId)
-// }, 1000)
+// 定时刷新文件夹
+setInterval(function () {
+	var lastImageId = $currentImage.data('currentIndex')
+	onOpen(currentDir)
+	showImage(lastImageId)
+}, 1000)
 
 
 var toggleButtons = function(hasSelectedImage) {

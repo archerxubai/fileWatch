@@ -7,7 +7,7 @@
 const secretKey = 'nodepy'
 const mongodbName = 'node_test'
 // 上传的文件都放在这个目录下面
-const uploadPath = 'download/'
+const uploadPath = 'C:\\upload\\'
 
 module.exports = {
     secretKey: secretKey,

@@ -36,7 +36,7 @@ const filesIn = (path) => {
 
 
 let newFiles = []
-let filesUpload = load('./express_server/db/filesUpload.txt')
+let filesUpload = load(__dirname + '/db/filesUpload.txt')
 
 // 监视文件夹，如果有新的文件加入，若不在已filesUpload中，则加入newFiles列表。
 const dirWatch = (path) => {
