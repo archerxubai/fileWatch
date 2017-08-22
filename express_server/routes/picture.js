@@ -4,8 +4,25 @@
 const express = require('express')
 const { uploadPath } = require('../config')
 const {filesIn} = require('../dirWatch')
-
+const multer = require('multer')
 const { log } = require('../../utils')
+
+uploadFolder = 'uploads/'
+
+// 配置 multer 模块
+// dest 表示文件上传之后保存的路径
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, uploadFolder);    // 保存的路径，备注：需要自己创建
+    },
+    filename: function (req, file, cb) {
+        // 将保存文件名设置为 字段名 + 时间戳，比如 logo-1478521468943
+        cb(null, Date.now() + '-' +  file.originalname);
+    }
+});
+
+// 通过 storage 选项来对 上传行为 进行定制化
+var upload = multer({ storage: storage })
 
 const picture = express.Router()
 
@@ -31,6 +48,21 @@ picture.get('/all', (request, response) => {
     let files = filesIn(uploadPath)
     log('files', files)
     response.send(files)
+})
+
+// 用户上传头像的路由, 这里会依次调用三个处理函数
+picture.post('/upload', upload.single('file'),(request, response) => {
+    // upload.single 获取上传的单个文件并且处理
+    // request.file 是处理之后的信息
+    log('debug request file', request.file)
+    // const u = currentUser(request)
+    const avatar = request.file
+    // log('fileName', avatar.filename)
+    // filename 是保存在 dest 中的文件名,
+    // 这里我们不使用用户上传的文件名, 直接用 multer 处理之后的名字
+    // 因为用户上传的文件名从安全角度来看是有风险的
+    // >> bash_profile
+    response.send('upload finished')
 })
 
 module.exports = picture

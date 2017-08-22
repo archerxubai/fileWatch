@@ -5,6 +5,7 @@
   "main": "main.js",
   "dependencies": {
     "express": "^4.15.4",
+    "form-data": "^2.2.0",
     "lodash": "^3.10.1"
   },
   "devDependencies": {
