@@ -34,7 +34,7 @@ picture.get('/download/:filename', (request, response) => {
     const path = require('path')
     // 头像所在的路径, 我们配置的时候使用的是相对路径
     const filename = request.params.filename
-    const p = picturePath + filename
+    const p = picturePath +'/' + filename
     // response.sendFile 的参数是一个绝对路径
     // 使用 path.resolve 把头像的路径转换成绝对路径
     const absolutePath = path.resolve(p)
