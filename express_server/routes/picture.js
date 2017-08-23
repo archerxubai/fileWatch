@@ -2,12 +2,15 @@
  * Created by hasee on 2017/7/21.
  */
 const express = require('express')
-const { uploadPath } = require('../config')
+const { config } = require('../config')
 const {filesIn} = require('../dirWatch')
 const multer = require('multer')
 const { log } = require('../../utils')
+const path = require('path')
 
 uploadFolder = 'uploads/'
+
+picturePath = path.normalize(config.pictureDir)
 
 // 配置 multer 模块
 // dest 表示文件上传之后保存的路径
@@ -31,7 +34,7 @@ picture.get('/download/:filename', (request, response) => {
     const path = require('path')
     // 头像所在的路径, 我们配置的时候使用的是相对路径
     const filename = request.params.filename
-    const p = uploadPath + filename
+    const p = picturePath + filename
     // response.sendFile 的参数是一个绝对路径
     // 使用 path.resolve 把头像的路径转换成绝对路径
     const absolutePath = path.resolve(p)
@@ -45,7 +48,7 @@ picture.get('/download/:filename', (request, response) => {
 
 picture.get('/all', (request, response) => {
     log('get all')
-    let files = filesIn(uploadPath)
+    let files = filesIn(picturePath)
     log('files', files)
     response.send(files)
 })

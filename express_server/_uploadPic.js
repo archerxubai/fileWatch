@@ -4,12 +4,12 @@
 const log = console.log.bind(console)
 
 // 'http://127.0.0.1:4000/picture/upload'
-const uploadPic = function (url) {
+const uploadPic = function (url, file) {
     let FormData = require('form-data');
     let fs = require('fs');
 
     let form = new FormData();
-    form.append('file', fs.createReadStream(__dirname + '/test.jpg'))
+    form.append('file', fs.createReadStream(file))
 
     form.submit(url, function (err, response) {
         if (err) {
@@ -19,6 +19,10 @@ const uploadPic = function (url) {
             response.resume()
         }
     })
+}
+
+const upload = function (dir) {
+
 }
 
 

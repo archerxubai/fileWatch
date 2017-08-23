@@ -3,18 +3,68 @@
   <head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
+
   </head>
   <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <h1>本地图片服务器</h1>
+    <div id="id-div-ip_info">
+
+    </div>
+    <button id="id-button-ip">得到ip地址</button>
+
+    <div>
+      <input id="id-input-picture_dir">
+      <button id="id-button-pic">图片文件夹路径</button>
+    </div>
+    <button id="id-button-server_run">启动服务器</button>
+
   </body>
 
+  <script src="getIp.js"></script>
+  <script src="express_server/utils.js"></script>
   <script>
-    // You can also require other files to run in this process
-    require('./renderer.js')
+      const fs = require('fs')
+      const serverConfig = {
+          pictureDir: ''
+      }
+
+      const bindButtonSavePath = function () {
+          let b = document.querySelector('#id-button-pic')
+          b.addEventListener('click', function () {
+              let input = document.querySelector('#id-input-picture_dir')
+              let path = input.value
+              log('path', path)
+              fs.stat(path, function (err, stat) {
+                  if (err == null) {
+                      if (stat.isDirectory()) {
+                          log('path is exist')
+                          alert('path is exist')
+                          serverConfig.pictureDir = path
+                          save(serverConfig, __dirname + '/express_server/db/config.txt')
+                      }
+                  } else {
+                      log('文件夹不存在')
+                      alert('文件夹不存在')
+                  }
+              })
+          })
+      }
+
+      bindButtonSavePath()
+
+      function server() {
+          const {run} = require('./express_server/app')
+          const port = 4000
+          // host 参数指定为 '0.0.0.0' 可以让别的机器访问你的代码
+          const host = '0.0.0.0'
+          log('server run')
+          run(port, host)
+      }
+
+      let buttonServerRun = document.querySelector('#id-button-server_run')
+      buttonServerRun.addEventListener('click', function () {
+          server()
+      })
 
   </script>
 </html>

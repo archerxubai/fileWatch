@@ -54,43 +54,17 @@ const dirWatch = (path) => {
     })
 }
 
-const upload = (filePath, serverPath ) => {
-    const net = require('net')
-
-// 设置连接服务器的信息
-    const host = '115.182.201.8'
-    const port = 80
-
-// 创建一个客户端, 可以连接到服务器
-    const client = new net.Socket()
-
-// 客户端根据给出的配置参数打开一个连接, 这样可以连接到服务器
-    client.connect(port, host, () => {
-        console.log('connect to: ', host, port)
-
-        // 向服务器发送一个消息
-        const request = 'data from client'
-        client.write(request)
-
-        // 如果 server destroy 之后, 再调用下面的代码会报错
-        // setInterval(() => {
-        //     client.write('hello in interval')
-        // }, 100)
-    })
-
-// 当接收服务器的响应数据时触发 data 事件
-    client.on('data', (d) => {
-        // 参数是 d, 默认情况下是 buffer 类型
-        // 可以用 d.toString() 将 buffer 转成字符串
-        console.log('data:', d, d.toString())
-
-        // 完全关闭 client 的连接, 套路写法
-        client.destroy()
-    })
-
-// client 关闭的时候触发这个事件
-    client.on('close', function () {
-        console.log('connection closes')
+const uploadPic = function (url, file) {
+    let FormData = require('form-data');
+    let form = new FormData();
+    form.append('file', fs.createReadStream(file))
+    form.submit(url, function (err, response) {
+        if (err) {
+            log('upload failed:', err);
+        } else {
+            log('Upload successful!  Server responded with:', response.statusCode);
+            response.resume()
+        }
     })
 }
 

@@ -4,13 +4,15 @@
 // 通常我们并不希望别人知道 secretKey 是什么,
 // 所以单独放在 config.js 文件中, 第一次提交到仓库,
 // 然后忽略把这个文件添加到 ignore 文件中, 这样就不用担心泄露密钥了
+
+const {save, load} = require('./utils')
 const secretKey = 'nodepy'
 const mongodbName = 'node_test'
 // 上传的文件都放在这个目录下面
-const uploadPath = 'C:\\upload\\'
+const config = load(__dirname + '/db/config.txt')
 
 module.exports = {
     secretKey: secretKey,
     mongodbName: mongodbName,
-    uploadPath: uploadPath,
+    config: config,
 }

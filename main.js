@@ -14,19 +14,12 @@ const url = require('url')
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
-function server() {
-    const {run} =  require('./express_server/app')
-    const port = 4000
-    // host 参数指定为 '0.0.0.0' 可以让别的机器访问你的代码
-    const host = '0.0.0.0'
-    log('server run')
-    run(port, host)
-}
+
 
 function createWindow () {
-    server()
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 800, height: 600})
+    mainWindow.webContents.openDevTools()
 
   // and load the QRcode.html of the app.
   mainWindow.loadURL(url.format({
